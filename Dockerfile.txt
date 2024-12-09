@@ -1,0 +1,5 @@
+# Utiliser une image Debian minimale
+FROM debian:bullseye-slim
+
+# Afficher "Hello World"
+CMD ["echo", "Hello World"]
