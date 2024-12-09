@@ -1,29 +1,5 @@
-# Utiliser une image Debian minimale comme base
+# Utiliser une image Debian minimale
 FROM debian:bullseye-slim
 
-# Mettre à jour les paquets et installer OpenSSH Server
-RUN apt-get update && apt-get install -y \
-	openssh-server \
-	sudo \
-	&& rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y passwd
-RUN service ssh restart
-
-#Créer un repertoire pour SSH et une clé d'hôte SSH
-RUN mkdir /var/run/sshd
-
-# Créer un utilisateur root avec le mot de passe
-RUN echo 'root:root972' | /user/sbin/chpasswd
-
-# Autoriser l'accés SSH en root
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
-# Modifier le fichier de configuration SSH pour utiliser un autre port, par exemple 2222
-RUN echo 'Port 2222' >> /etc/ssh/sshd_config
-
-# Exposer le port 2222 pour la connexion SSH
-EXPOSE 2222
-
-# Lancer le service SSH en avant-plan
-CMD ["/usr/sbin/sshd", "-D"]
+# Afficher "Hello World"
+CMD ["echo", "Hello World"]
